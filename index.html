@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <title>Epiq Programming Assessment</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="popreturn" id = "chart" >
+            <div id="cities">
+                <form onsubmit="event.preventDefault(); return app.filter()">
+                    <label for="cName">Enter City Name</label><br>
+                    <input type="text" id="cName" name="cName">
+                </form>
+            </div>
+            <div id="states">
+                <label for="sName">Pick state(s) to search in. <br> Use ctrl or cmd to select multiple</label><br>
+                <select id="sName" multiple="true">
+                    <option v-for="states in statelist"
+                            :value="states">
+                        {{ states }}
+                    </option>
+                </select>
+            </div>
+            <div id="populations">
+                <form onsubmit="event.preventDefault(); return app.filter()">
+                    <label for="min">Smallest Population</label>
+                    <input type="number" id="min">
+                </form>
+                <form onsubmit="event.preventDefault(); return app.filter()">
+                    <label for="max">Largest Population</label>
+                    <input type="number" id="max">
+                </form>
+            </div>
+            <button style="float: right" onclick="app.filter()">Filter</button>
+            <div id="list">
+                <table id="listoflocations">
+                    <tr>
+                        <th @click="sort('cityname')">City Name</th>
+                        <th @click="sort('state')">State</th>
+                        <th @click="sort('population')">Population</th>
+                    </tr>
+                    <tr v-for="item in sortedlocationlist">
+                        <td> {{ item.cityname }}</td>
+                        <td> {{ item.state }}</td>
+                        <td> {{ item.population }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div v-else>
+            <img src="https://cdn.dribbble.com/users/744913/screenshots/4094897/4---final.gif">
+        </div>
+    </div>
+    <script src = "Epiq_JS_file.js"></script>
+</body>
+</html>

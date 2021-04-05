@@ -1,0 +1,14 @@
+body {
+    background-color: aliceblue;
+}
+table, th, td {
+    text-align: left;
+    width: 100%;
+}
+tr:nth-child(even) {
+    background-color: darkgray;
+}
+#cities, #states, #populations {
+    float: left;
+    width: 33%;
+}
