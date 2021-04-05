@@ -1,4 +1,3 @@
-//things left to do create a reset button that sets everything back to original load.
 //fix the loading screen so its better. Just overall better.
 
 
@@ -18,6 +17,14 @@ var app = new Vue({
     },
 
     methods: {
+        reset(){
+            // this adds a convent reset button it just reverts everything back to normal.
+            app.modifiedlocationlist = app.locationlist;
+            document.getElementById("cName").value = "";
+            document.getElementById("min").value = "";
+            document.getElementById("max").value = "";
+            document.getElementById("sName").selectedIndex = "All";
+        },
         checkcityname(){
             //This is to check the Enter City Name portion and is done first as its the largest
             // narrowing and will make all the following functions faster.
@@ -123,7 +130,6 @@ var app = new Vue({
                     return response.json();
                 }).then(function(result) {
                     app.cenlist = result;
-                    console.log(result);
                     let value;
                     app.cenlist.shift();
                     let counter = 0;
@@ -147,6 +153,7 @@ var app = new Vue({
                     }
                     app.modifiedlocationlist = app.locationlist;
                     app.popreturn = true;
+                    document.body.style.backgroundColor = "aliceblue"
             })
         },
     },

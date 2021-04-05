@@ -1,5 +1,5 @@
 body {
-    background-color: aliceblue;
+    background-color: black;
     font-family: Arial, Helvetica, sans-serif;
 }
 div {
@@ -47,8 +47,15 @@ tr:nth-child(odd) {
     width: 33%;
 }
 
-#filter {
+#filterbttn, #resetbttn {
     float: right;
     height: 30px;
     width: 60px;
+}
+#loading {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -350px;
+    margin-left: -600px;
 }

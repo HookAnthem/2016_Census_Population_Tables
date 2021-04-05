@@ -34,7 +34,8 @@
                     <input type="number" id="max">
                 </form>
             </div>
-            <button id="filter" onclick="app.filter()">Filter</button>
+            <button id="filterbttn" onclick="app.filter()">Filter</button>
+            <button id="resetbttn" onclick="app.reset()">Reset</button>
             <div id="list">
                 <table id="listoflocations">
                     <tr>
@@ -50,8 +51,8 @@
                 </table>
             </div>
         </div>
-        <div v-else>
-            <img src="https://cdn.dribbble.com/users/744913/screenshots/4094897/4---final.gif">
+        <div id="loading" v-else>
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b6e0b072897469.5bf6e79950d23.gif">
         </div>
     </div>
     <script src = "Epiq_JS_file.js"></script>
