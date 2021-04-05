@@ -14,21 +14,31 @@ var app = new Vue({
     },
 
     methods: {
-        filter() {
-            app.modifiedlocationlist = []
+        checkcityname(){
+            //This is to check the Enter City Name portion and is done first as its the largest
+            // narrowing and will make all the following functions faster.
             let city = document.getElementById("cName").value.toLowerCase();
-            for(let i = 0; i < app.locationlist.length; i++){
-                let search = app.locationlist[i]["cityname"].toLocaleLowerCase().indexOf(city);
-                if(search > -1){
-                    app.modifiedlocationlist.push(app.locationlist[i])
+            if(city !== "") {
+                app.modifiedlocationlist = [];
+                for (let i = 0; i < app.locationlist.length; i++) {
+                    let search = app.locationlist[i]["cityname"].toLocaleLowerCase().indexOf(city);
+                    if (search > -1) {
+                        app.modifiedlocationlist.push(app.locationlist[i]);
+                    }
                 }
             }
+            else{
+                app.modifiedlocationlist = app.locationlist;
+            }
+        },
+        checkstates(){
+            //This function checks the states search field if nothing is selected or its all we skip the loop
             let state = document.getElementById("sName");
             let selectedStates = Array.from(state.selectedOptions)
-                .map(option => option.value)
+                .map(option => option.value);
             if(selectedStates.length !== 0) {
                 if (selectedStates[0] !== "All") {
-                    let temp = []
+                    let temp = [];
                     for (let j = 0; j < selectedStates.length; j++) {
                         for (let i = 0; i < app.modifiedlocationlist.length; i++) {
                             let search = app.modifiedlocationlist[i]["state"].indexOf(selectedStates[j]);
@@ -40,6 +50,9 @@ var app = new Vue({
                     app.modifiedlocationlist = temp;
                 }
             }
+        },
+        checkpopulation(){
+            //This function checks the population parameters and is is skipped if they are not filled.
             let min = Math.floor(document.getElementById("min").value);
             let max= Math.floor(document.getElementById("max").value);
             if(!!min){
@@ -61,13 +74,20 @@ var app = new Vue({
                 app.modifiedlocationlist = temp;
             }
         },
+        filter() {
+            this.checkcityname();
+            this.checkstates();
+            this.checkpopulation();
+        },
         sort:function(item){
+            //This function is just to change the direction of the sort and what we are sorting on as needed.
             if(item === app.currentSort){
                 app.currentSortDir = app.currentSortDir==='asc'?'desc':'asc';
             }
             app.currentSort = item;
         },
         fetchCensus() {
+            //This is the API call and collects all the data we manipulate. 
             var CenAPI = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME&for=place:*&key=646552d3622a3a24cf4e2c692b2ee925a3354f3a"
             fetch(CenAPI)
                 .then(response => {
@@ -102,6 +122,7 @@ var app = new Vue({
         },
     },
     computed:{
+        //This is the sort and just leans on the js sort.
         sortedlocationlist:function() {
             return app.modifiedlocationlist.sort((a,b) => {
                 let modifier = 1;

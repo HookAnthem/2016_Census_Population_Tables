@@ -11,7 +11,7 @@
         <div v-if="popreturn" id = "chart" >
             <div id="cities">
                 <form onsubmit="event.preventDefault(); return app.filter()">
-                    <label for="cName">Enter City Name</label><br>
+                    <label class="input" for="cName">Enter City Name</label>
                     <input type="text" id="cName" name="cName">
                 </form>
             </div>
@@ -26,15 +26,15 @@
             </div>
             <div id="populations">
                 <form onsubmit="event.preventDefault(); return app.filter()">
-                    <label for="min">Smallest Population</label>
+                    <label class="input" for="min">Smallest Population</label>
                     <input type="number" id="min">
                 </form>
                 <form onsubmit="event.preventDefault(); return app.filter()">
-                    <label for="max">Largest Population</label>
+                    <label class="input" for="max">Largest Population</label>
                     <input type="number" id="max">
                 </form>
             </div>
-            <button style="float: right" onclick="app.filter()">Filter</button>
+            <button id="filter" onclick="app.filter()">Filter</button>
             <div id="list">
                 <table id="listoflocations">
                     <tr>
