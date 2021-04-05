@@ -1,6 +1,3 @@
-//fix the loading screen so its better. Just overall better.
-
-
 var app = new Vue({
     el: '#app',
     data: {
