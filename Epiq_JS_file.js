@@ -1,3 +1,7 @@
+//things left to do create a reset button that sets everything back to original load.
+//fix the loading screen so its better. Just overall better.
+
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -54,7 +58,7 @@ var app = new Vue({
         checkpopulation(){
             //This function checks the population parameters and is is skipped if they are not filled.
             let min = Math.floor(document.getElementById("min").value);
-            let max= Math.floor(document.getElementById("max").value);
+            let max= document.getElementById("max").value;
             if(!!min){
                 let temp = []
                 for (let i = 0; i < app.modifiedlocationlist.length; i++) {
@@ -65,9 +69,10 @@ var app = new Vue({
                 app.modifiedlocationlist = temp;
             }
             if(!!max){
+                max = Math.floor(max)
                 let temp = []
                 for (let i = 0; i < app.modifiedlocationlist.length; i++) {
-                    if (max+1 >= app.modifiedlocationlist[i]["population"]) {
+                    if (max >= app.modifiedlocationlist[i]["population"]) {
                         temp.push(app.modifiedlocationlist[i]);
                     }
                 }
