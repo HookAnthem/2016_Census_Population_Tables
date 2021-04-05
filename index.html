@@ -40,9 +40,9 @@
                     <tr>
                         <th @click="sort('cityname')">City Name</th>
                         <th @click="sort('state')">State</th>
-                        <th @click="sort('population')">Population</th>
+                        <th @click="population('population')">Population</th>
                     </tr>
-                    <tr v-for="item in sortedlocationlist">
+                    <tr v-for="item in modifiedlocationlist">
                         <td> {{ item.cityname }}</td>
                         <td> {{ item.state }}</td>
                         <td> {{ item.population }}</td>

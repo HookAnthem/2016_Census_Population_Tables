@@ -80,14 +80,38 @@ var app = new Vue({
             this.checkpopulation();
         },
         sort:function(item){
-            //This function is just to change the direction of the sort and what we are sorting on as needed.
+            //This is the everything but population sort
             if(item === app.currentSort){
                 app.currentSortDir = app.currentSortDir==='asc'?'desc':'asc';
             }
             app.currentSort = item;
+            app.modifiedlocationlist.sort((a, b) => {
+                let modifier = 1;
+                if (app.currentSortDir === 'desc') modifier = -1;
+                if (a[app.currentSort] < b[app.currentSort]) return -1 * modifier;
+                if (a[app.currentSort] > b[app.currentSort]) return 1 * modifier;
+                return 0;
+            })
+        },
+        population(item){
+            //population sort is seperate so we can cast to integers
+            if(item === app.currentSort){
+                app.currentSortDir = app.currentSortDir==='asc'?'desc':'asc';
+            }
+            app.currentSort = item;
+            if(app.currentSortDir === 'asc') {
+                app.modifiedlocationlist.sort(function (a, b) {
+                    return parseInt(a[app.currentSort]) - parseInt(b[app.currentSort])
+                })
+            }
+            else{
+                app.modifiedlocationlist.sort(function (a, b) {
+                    return parseInt(b[app.currentSort]) - parseInt(a[app.currentSort])
+                })
+            }
         },
         fetchCensus() {
-            //This is the API call and collects all the data we manipulate. 
+            //This is the API call and collects all the data we manipulate.
             var CenAPI = "https://api.census.gov/data/2016/pep/population?get=POP,GEONAME&for=place:*&key=646552d3622a3a24cf4e2c692b2ee925a3354f3a"
             fetch(CenAPI)
                 .then(response => {
@@ -120,18 +144,6 @@ var app = new Vue({
                     app.popreturn = true;
             })
         },
-    },
-    computed:{
-        //This is the sort and just leans on the js sort.
-        sortedlocationlist:function() {
-            return app.modifiedlocationlist.sort((a,b) => {
-                let modifier = 1;
-                if(app.currentSortDir === 'desc') modifier = -1;
-                if(a[app.currentSort] < b[app.currentSort]) return -1 * modifier;
-                if(a[app.currentSort] > b[app.currentSort]) return 1 * modifier;
-                return 0;
-            })
-        }
     },
 })
 
