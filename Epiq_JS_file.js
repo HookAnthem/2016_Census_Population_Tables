@@ -42,19 +42,19 @@ var app = new Vue({
             }
             let min = Math.floor(document.getElementById("min").value);
             let max= Math.floor(document.getElementById("max").value);
-            if(typeof min !=='undefined'){
+            if(!!min){
                 let temp = []
                 for (let i = 0; i < app.modifiedlocationlist.length; i++) {
-                    if (min > app.modifiedlocationlist[i]["population"]) {
+                    if (min <= app.modifiedlocationlist[i]["population"]) {
                         temp.push(app.modifiedlocationlist[i]);
                     }
                 }
                 app.modifiedlocationlist = temp;
             }
-            if(typeof max !== 'undefined'){
+            if(!!max){
                 let temp = []
                 for (let i = 0; i < app.modifiedlocationlist.length; i++) {
-                    if (max < app.modifiedlocationlist[i]["population"]) {
+                    if (max+1 >= app.modifiedlocationlist[i]["population"]) {
                         temp.push(app.modifiedlocationlist[i]);
                     }
                 }
